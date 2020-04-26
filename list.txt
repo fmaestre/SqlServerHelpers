@@ -1,0 +1,1 @@
+ COALESCE para retrornal la primira expesion not null

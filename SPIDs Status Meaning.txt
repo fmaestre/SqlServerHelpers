@@ -1,0 +1,13 @@
+Status		Meaning
+Background	The SPID is running a background task, such as deadlock detection.
+Sleeping	The SPID is not currently executing. This usually indicates that the SPID is awaiting a command from the application.
+Running		The SPID is currently running on a scheduler.
+Runnable	The SPID is in the runnable queue of a scheduler and waiting to get scheduler time.
+Sos_scheduler_yield	The SPID was running, but it has voluntarily yielded its time slice on the scheduler to allow another 
+					SPID to acquire scheduler time.
+Suspended	The SPID is waiting for an event, such as a lock or a latch.
+Rollback	The SPID is in rollback of a transaction.
+Defwakeup	Indicates that the SPID is waiting for a resource that is in the process of being freed. 
+			The waitresource field should indicate the resource in question.
+			
+source:https://support.microsoft.com/fil-ph/help/224453/inf-understanding-and-resolving-sql-server-blocking-problems			

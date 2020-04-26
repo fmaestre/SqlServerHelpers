@@ -1,0 +1,21 @@
+select * from 
+(
+select top 1000 a.prettyname, a.x,b.y, round(100 * ((a.x/b.y) - 1) *-1,2) n from 
+(
+
+SELECT prettyname, cb_salario x
+FROM MXTI1SAPPTRESS.datos.dbo.NOMINA
+	 LEFT OUTER JOIN MXTI1SAPPTRESS.datos.dbo.COLABORA ON COLABORA.CB_CODIGO = NOMINA.CB_CODIGO
+where pe_year = 2014 and pe_numero = 48 --and prettyname like '%maestre%'	 
+) A inner join 
+(
+SELECT prettyname, cb_salario y
+FROM MXTI1SAPPTRESS.datos.dbo.NOMINA
+	 LEFT OUTER JOIN MXTI1SAPPTRESS.datos.dbo.COLABORA ON COLABORA.CB_CODIGO = NOMINA.CB_CODIGO
+where pe_year = 2014 and pe_numero = 50 --and prettyname like '%maestre%'	 
+) B
+on a.prettyname = b.prettyname
+--order by 4 desc
+)dd 
+where prettyname like '%zepeda%'
+order by 3 desc, 4 desc

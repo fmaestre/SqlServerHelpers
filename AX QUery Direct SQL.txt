@@ -1,0 +1,11 @@
+        //check max qty of items is reached
+            connection = new Connection();
+            statement = connection.createStatement();
+            query = strFmt("select count(distinct itemid) from inventJournalTrans with(nolock) where  journalId = '%1'",journalId);
+            new SqlStatementExecutePermission(query).assert();
+            resultSet = statement.executeQuery(query);
+            while(resultSet.next())
+            {
+                qty  = resultSet.getInt(1);
+            }
+            CodeAccessPermission::revertAssert();

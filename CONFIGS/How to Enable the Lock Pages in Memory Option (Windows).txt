@@ -1,0 +1,29 @@
+http://technet.microsoft.com/en-us/library/ms190730.aspx
+
+
+How to: Enable the Lock Pages in Memory Option (Windows)
+The Windows policy Lock Pages in Memory option is disabled by default. This privilege must be enabled to configure Address Windowing Extensions (AWE). This policy determines which accounts can use a process to keep data in physical memory, preventing the system from paging the data to virtual memory on disk. On 32-bit operating systems, setting this privilege when not using AWE can significantly impair system performance. Locking pages in memory is not required on 64-bit operating systems.
+
+Use the Windows Group Policy tool (gpedit.msc) to enable this policy for the account used by SQL Server. You must be a system administrator to change this policy.
+
+For a table that lists the maximum server memory values, see Memory Architecture.
+
+To enable the lock pages in memory option
+
+On the Start menu, click Run. In the Open box, type gpedit.msc.
+
+The Group Policy dialog box opens.
+
+On the Group Policy console, expand Computer Configuration, and then expand Windows Settings.
+
+Expand Security Settings, and then expand Local Policies.
+
+Select the User Rights Assignment folder.
+
+The policies will be displayed in the details pane.
+
+In the pane, double-click Lock pages in memory.
+
+In the Local Security Policy Setting dialog box, click Add.
+
+In the Select Users or Groups dialog box, add an account with privileges to run sqlservr.exe.

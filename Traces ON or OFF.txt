@@ -1,0 +1,23 @@
+/*AX best practice trace flags*/
+_______________________________
+dbcc traceon(1117,-1)
+dbcc traceon(1118,-1)
+dbcc traceon(1224,-1)
+dbcc traceon(2371,-1)
+dbcc traceon(4199,-1)
+_______________________________
+dbcc tracestatus
+_______________________________
+
+
+
+dbcc freeproccache   --Use DBCC FREEPROCCACHE to clear the plan cache carefully. Freeing the plan cache causes, for example, a stored procedure to be recompiled instead of reused from the cache.
+dbcc dropCleanBuffers --Removes all clean buffers from the buffer pool, and columnstore objects from the columnstore object pool.
+dbcc freesystemcache ('ALL')
+Declare @dbid int = db_ID() 
+dbcc flushprocInDB(@dbid) 
+
+
+
+dbcc tracestatus
+--dbcc traceoff(4199,-1)

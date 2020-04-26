@@ -1,0 +1,150 @@
+[session_id]	[smallint] NOT NULL			Session ID (a.k.a. SPID) 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[dd hh:mm:ss.mss]	[varchar](15) NULL	<not returned>		For an active request, time the query has been running
+				For a sleeping session, time since the last batch completed 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[dd hh:mm:ss.mss (avg)]	[varchar](15) NULL	[avg_elapsed_time]	[int] NULL	(Requires @get_avg_time option)
+				How much time has the active portion of the query taken in the past, on average? 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[physical_io]	[varchar](30) NULL	[physical_io]	[bigint] NULL	Shows the number of physical I/Os, for active requests 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[reads]	[varchar](30) NULL	[reads]	[bigint] NULL	For an active request, number of reads done for the current query
+				For a sleeping session, total number of reads done over the lifetime of the session 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[physical_reads]	[varchar](30) NULL	[physical_reads]	[bigint] NULL	For an active request, number of physical reads done for the current query
+				For a sleeping session, total number of physical reads done over the lifetime of the session 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[writes]	[varchar](30) NULL	[writes]	[bigint] NULL	For an active request, number of writes done for the current query
+				For a sleeping session, total number of writes done over the lifetime of the session 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[tempdb_allocations]	[varchar](30) NULL	[tempdb_allocations]	[bigint] NULL	For an active request, number of TempDB writes done for the current query
+				For a sleeping session, total number of TempDB writes done over the lifetime of the session 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[tempdb_current]	[varchar](30) NULL	[tempdb_current]	[bigint] NULL	For an active request, number of TempDB pages currently allocated for the query
+				For a sleeping session, number of TempDB pages currently allocated for the session 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[CPU]	[varchar](30) NULL	[CPU]	[int] NULL	For an active request, total CPU time consumed by the current query
+				For a sleeping session, total CPU time consumed over the lifetime of the session 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[context_switches]	[varchar](30) NULL	[context_switches]	[bigint] NULL	Shows the number of context switches, for active requests 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[used_memory]	[varchar](30) NOT NULL	[used_memory]	[bigint] NOT NULL	For an active request, total memory consumption for the current query
+				For a sleeping session, total current memory consumption 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[physical_io_delta]	[varchar](30) NULL	[physical_io_delta]	[bigint] NULL	(Requires @delta_interval option)
+				Difference between the number of physical I/Os reported on the first and second collections.
+				If the request started after the first collection, the value will be NULL 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[reads_delta]	[varchar](30) NULL	[reads_delta]	[bigint] NULL	(Requires @delta_interval option)
+				Difference between the number of reads reported on the first and second collections.
+				If the request started after the first collection, the value will be NULL 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[physical_reads_delta]	[varchar](30) NULL	[physical_reads_delta]	[bigint] NULL	(Requires @delta_interval option)
+				Difference between the number of physical reads reported on the first and second collections.
+				If the request started after the first collection, the value will be NULL 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[writes_delta]	[varchar](30) NULL	[writes_delta]	[bigint] NULL	(Requires @delta_interval option)
+				Difference between the number of writes reported on the first and second collections.
+				If the request started after the first collection, the value will be NULL 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[tempdb_allocations_delta]	[varchar](30) NULL	[tempdb_allocations_delta]	[bigint] NULL	(Requires @delta_interval option)
+				Difference between the number of TempDB writes reported on the first and second collections.
+				If the request started after the first collection, the value will be NULL 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[tempdb_current_delta]	[varchar](30) NULL	[tempdb_current_delta]	[bigint] NULL	(Requires @delta_interval option)
+				Difference between the number of allocated TempDB pages reported on the first and second
+				collections. If the request started after the first collection, the value will be NULL 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[CPU_delta]	[varchar](30) NULL	[CPU_delta]	[int] NULL	(Requires @delta_interval option)
+				Difference between the CPU time reported on the first and second collections.
+				If the request started after the first collection, the value will be NULL 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[context_switches_delta]	[varchar](30) NULL	[context_switches_delta]	[bigint] NULL	(Requires @delta_interval option)
+				Difference between the context switches count reported on the first and second collections
+				If the request started after the first collection, the value will be NULL 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[used_memory_delta]	[varchar](30) NULL	[used_memory_delta]	[bigint] NULL	Difference between the memory usage reported on the first and second collections
+				If the request started after the first collection, the value will be NULL 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[tasks]	[varchar](30) NULL	[tasks]	[smallint] NULL	Number of worker tasks currently allocated, for active requests 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[status]	[varchar](30) NOT NULL			Activity status for the session (running, sleeping, etc) 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[wait_info]	[nvarchar](4000) NULL			Aggregates wait information, in the following format:
+				(Ax: Bms/Cms/Dms)E
+				A is the number of waiting tasks currently waiting on resource type E. B/C/D are wait
+				times, in milliseconds. If only one thread is waiting, its wait time will be shown as B.
+				If two tasks are waiting, each of their wait times will be shown (B/C). If three or more
+				tasks are waiting, the minimum, average, and maximum wait times will be shown (B/C/D).
+				If wait type E is a page latch wait and the page is of a "special" type (e.g. PFS, GAM, SGAM),
+				the page type will be identified.
+				If wait type E is CXPACKET, the nodeId from the query plan will be identified 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[locks]	[xml] NULL			(Requires @get_locks option)
+				Aggregates lock information, in XML format.
+				The lock XML includes the lock mode, locked object, and aggregates the number of requests.
+				Attempts are made to identify locked objects by name 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[tran_start_time]	[datetime] NULL			(Requires @get_transaction_info option)
+				Date and time that the first transaction opened by a session caused a transaction log
+				write to occur. 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[tran_log_writes]	[nvarchar](4000) NULL			(Requires @get_transaction_info option)
+				Aggregates transaction log write information, in the following format:
+				A:wB (C kB)
+				A is a database that has been touched by an active transaction
+				B is the number of log writes that have been made in the database as a result of the transaction
+				C is the number of log kilobytes consumed by the log records 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[open_tran_count]	[varchar](30) NULL	[open_tran_count]	[smallint] NULL	Shows the number of open transactions the session has open 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[sql_command]	[xml] NULL	[sql_command]	[nvarchar]	(Requires @get_outer_command option)
+				Shows the "outer" SQL command, i.e. the text of the batch or RPC sent to the server,
+				if available 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[sql_text]	[xml] NULL	[sql_text]	[nvarchar]	Shows the SQL text for active requests or the last statement executed
+				for sleeping sessions, if available in either case.
+				If @get_full_inner_text option is set, shows the full text of the batch.
+				Otherwise, shows only the active statement within the batch.
+				If the query text is locked, a special timeout message will be sent, in the following format:
+				<timeout_exceeded />
+				If an error occurs, an error message will be sent, in the following format:
+				<error message="message" /> 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[query_plan]	[xml] NULL			(Requires @get_plans option)
+				Shows the query plan for the request, if available.
+				If the plan is locked, a special timeout message will be sent, in the following format:
+				<timeout_exceeded />
+				If an error occurs, an error message will be sent, in the following format:
+				<error message="message" /> 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[blocking_session_id]	[smallint] NULL			When applicable, shows the blocking SPID 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[blocked_session_count]	[varchar](30) NULL	[blocked_session_count]	[smallint] NULL	(Requires @find_block_leaders option)
+				The total number of SPIDs blocked by this session,
+				all the way down the blocking chain. 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[percent_complete]	[varchar](30) NULL	[percent_complete]	[real] NULL	When applicable, shows the percent complete (e.g. for backups, restores, and some rollbacks) 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[host_name]	[sysname] NOT NULL			Shows the host name for the connection 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[login_name]	[sysname] NOT NULL			Shows the login name for the connection 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[database_name]	[sysname] NULL			Shows the connected database 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[program_name]	[sysname] NULL			Shows the reported program/application name 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[additional_info]	[xml] NULL			(Requires @get_additional_info option)
+				Returns additional non-performance-related session/request information
+				If the script finds a SQL Agent job running, the name of the job and job step will be reported
+				If @get_task_info = 2 and the script finds a lock wait, the locked object will be reported 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[start_time]	[datetime] NOT NULL			For active requests, shows the time the request started
+				For sleeping sessions, shows the time the last batch completed 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[login_time]	[datetime] NOT NULL			Shows the time that the session connected 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[request_id]	[int] NULL			For active requests, shows the request_id
+				Should be 0 unless MARS is being used 
+-----------------------------------	-----------------------------------	---------------------------------------	---------------------------------------	----------------------------------------------------------------------------------------------------------------------
+[collection_time]	[datetime] NOT NULL			Time that this script's final SELECT ran 

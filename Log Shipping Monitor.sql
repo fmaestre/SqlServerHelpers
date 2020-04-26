@@ -1,0 +1,1 @@
+ EXEC master..sp_help_log_shipping_monitor

@@ -1,0 +1,10 @@
+Lock Request Time Out Issues While Dropping Index/Constraint
+At times when you try to drop the index or constraint ,you may come across the following error 
+Lock request time out period exceeded.
+--Run the following query  to find the waiting request
+SELECT r.session_id, r.status, r.start_time, r.command, s.text, r.wait_time, r.cpu_time, r.total_elapsed_time, r.reads, r.writes, r.logical_reads, r.transaction_isolation_level ,r.* 
+FROM sys.dm_exec_requests r 
+CROSS APPLY sys.dm_exec_sql_text(r.sql_handle) s
+
+--what is  blocking my process
+SELECT  distinct object_name(a.rsc_objid), a.req_spid, b.loginame from master.dbo.syslockinfo a (nolock) join master.dbo.sysprocesses b (nolock) on a.req_spid=b.spid where object_name(a.rsc_objid) is not null

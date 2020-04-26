@@ -1,0 +1,70 @@
+https://www.brentozar.com/archive/2014/05/tell-need-tempdb-files/
+
+
+/* Re-sizing TempDB files to 4 GB */
+ 
+USE [master]; 
+GO 
+alter database tempdb modify file (name='tempdev', size = 500MB, FILEGROWTH = 50MB);
+GO
+ 
+/* Adding seven additional files */
+ 
+USE [master];
+GO
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev2', FILENAME = N'K:\SqlDataFiles\tempdev2.ndf' , SIZE = 500MB , FILEGROWTH = 50MB);
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev3', FILENAME = N'K:\SqlDataFiles\tempdev3.ndf' , SIZE = 500MB , FILEGROWTH = 50MB);
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev4', FILENAME = N'K:\SqlDataFiles\tempdev4.ndf' , SIZE = 500MB , FILEGROWTH = 50MB);
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev5', FILENAME = N'K:\SqlDataFiles\tempdev5.ndf' , SIZE = 500MB , FILEGROWTH = 50MB);
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev6', FILENAME = N'K:\SqlDataFiles\tempdev6.ndf' , SIZE = 500MB , FILEGROWTH = 50MB);
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev7', FILENAME = N'K:\SqlDataFiles\tempdev7.ndf' , SIZE = 500MB , FILEGROWTH = 50MB);
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev8', FILENAME = N'K:\SqlDataFiles\tempdev8.ndf' , SIZE = 500MB , FILEGROWTH = 50MB);
+GO
+
+
+---- EN PREPROD--------------
+
+/* Re-sizing TempDB files to 4 GB */
+ 
+USE [master]; 
+GO 
+alter database tempdb modify file (name='tempdev', size = 200MB, FILEGROWTH = 50MB);
+GO
+ 
+/* Adding seven additional files */
+ 
+USE [master];
+GO
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev2', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\DATA\tempdev2.ndf' , SIZE = 200MB , FILEGROWTH = 50MB);
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev3', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\DATA\tempdev3.ndf' , SIZE = 200MB , FILEGROWTH = 50MB);
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev4', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\DATA\tempdev4.ndf' , SIZE = 200MB , FILEGROWTH = 50MB);
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev5', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\DATA\tempdev5.ndf' , SIZE = 200MB , FILEGROWTH = 50MB);
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev6', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\DATA\tempdev6.ndf' , SIZE = 200MB , FILEGROWTH = 50MB);
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev7', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\DATA\tempdev7.ndf' , SIZE = 200MB , FILEGROWTH = 50MB);
+ALTER DATABASE [tempdb] ADD FILE (NAME = N'tempdev8', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\DATA\tempdev8.ndf' , SIZE = 200MB , FILEGROWTH = 50MB);
+GO
+
+
+---------------------------
+--restart sql and remove the files
+USE tempdb;
+GO
+	DBCC SHRINKFILE('tempdev2', EMPTYFILE)
+	DBCC SHRINKFILE('tempdev3', EMPTYFILE)
+	DBCC SHRINKFILE('tempdev4', EMPTYFILE)
+	DBCC SHRINKFILE('tempdev5', EMPTYFILE)
+	DBCC SHRINKFILE('tempdev6', EMPTYFILE)
+	DBCC SHRINKFILE('tempdev7', EMPTYFILE)
+	DBCC SHRINKFILE('tempdev8', EMPTYFILE)	
+GO
+USE master;
+GO
+ALTER DATABASE tempdb REMOVE FILE tempdev2;
+ALTER DATABASE tempdb REMOVE FILE tempdev3;
+ALTER DATABASE tempdb REMOVE FILE tempdev4;
+ALTER DATABASE tempdb REMOVE FILE tempdev5;
+ALTER DATABASE tempdb REMOVE FILE tempdev6;
+ALTER DATABASE tempdb REMOVE FILE tempdev7;
+ALTER DATABASE tempdb REMOVE FILE tempdev8;
+
+

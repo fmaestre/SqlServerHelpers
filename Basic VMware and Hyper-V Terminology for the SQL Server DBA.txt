@@ -1,0 +1,20 @@
+https://www.brentozar.com/archive/2015/04/vmware-and-hyper-v-terminology-for-the-sql-server-dba/
+Basic VMware and Hyper-V Terminology for the SQL Server DBA
+April 29, 2015Kendra LittleVirtualization3 Comments
+SQL Server DBAs often need to work with virtualization– and frequently need to work with multiple virtualization platforms. 
+Many platforms have similar features, but they often have different names, and it’s hard to remember what everything’s called.
+
+I’ve got a little cheat sheet for you for two of the platforms! (No offense, Xen fans, please don’t come after me.)
+
+----------------------------------			--------------------------------------					--------------------------------------------------
+What is it?									VMware name												Hyper-V name
+----------------------------------			--------------------------------------					--------------------------------------------------
+Management Tools, Free						vSphere / web client									Hyper-V Manager (snap-in)
+Management Tools, Paid						vCenter Server											System Center Virtual Machine Manager
+Automatic migration to another 
+host if one fails							High Availability (HA)									High Availability (configured via a role in a Windows Failover Cluster)
+Moving a VM from host to host				vMotion													Live Migration
+Moving a VM from one storage subsystem 
+to another									Storage vMotion											Storage Migration
+Automatic load balancing					DRS (Distributed Resource Scheduler)					Dynamic Optimization in VMM (Virtual Machine Manager, a part of System Center)
+Rules to keep VMs from being too close		Affinity Rules for DRS									Availability Sets, part of Intelligent Placement in VMM

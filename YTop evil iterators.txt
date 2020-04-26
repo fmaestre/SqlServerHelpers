@@ -1,0 +1,8 @@
+Top 5 bad iterator
+
+Lookup : RID lookip, key lookup | Solutions: Column to be included in an index.
+Spool  : Table spool(lazy), Index/table spool(eager) all use TempDb | Sol: Lack of inx or uniqueness.
+Sort   : Order by  (avoid)
+Hash   : joins/ common in WH but not in OLDP, Heavely use of tempdb
+Nested Loop : never ending queries, Avoid. 
+
