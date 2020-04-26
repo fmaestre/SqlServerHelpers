@@ -5,7 +5,7 @@ WHERE definition LIKE '%' + 'PRICECALCID' + '%'
       and definition LIKE '%' + 'acum' + '%'
       and definition LIKE '%' + 'update' + '%'
 
---pasar el grid a texto y yaaaaa
+--pasar el grid a texto y ya   (from DEV)
 SELECT DISTINCT OBJECT_NAME(OBJECT_ID),
 object_definition(OBJECT_ID)
 FROM sys.Procedures
